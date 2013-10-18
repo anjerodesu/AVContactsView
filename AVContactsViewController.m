@@ -1,28 +1,26 @@
 //
-//  SSPersonViewController.m
+//  AVContactsViewController.m
 //  SSToolkit
 //
 //  Created by Sam Soffes on 9/8/10.
 //  Copyright 2010 Sam Soffes. All rights reserved.
 //
 
-#import "SSPersonViewController.h"
-#import "SSPersonHeaderView.h"
-#import "SSPersonFooterView.h"
-#import "SSPersonAddressTableViewCell.h"
-#import "SSEditPersonViewController.h"
+#import "AVContactsViewController.h"
+#import "AVContactsHeaderView.h"
+#import "AVContactsFooterView.h"
+#import "AVContactsAddressTableViewCell.h"
 #import <AddressBookUI/AddressBookUI.h>
 
-NSInteger kSSPersonViewControllerDeleteActionSheetTag = 987;
+NSInteger kAVContactsViewControllerDeleteActionSheetTag = 987;
 
-@interface SSPersonViewController (PrivateMethods)
+@interface AVContactsViewController (PrivateMethods)
+
 + (NSString *)_formatLabel:(NSString *)rawLabel;
+
 @end
 
-@implementation SSPersonViewController
-
-@synthesize addressBook = _addressBook;
-@synthesize displayedPerson = _displayedPerson; 
+@implementation AVContactsViewController
 
 #pragma mark Class Methods
 
@@ -33,12 +31,18 @@ NSInteger kSSPersonViewControllerDeleteActionSheetTag = 987;
 	if ([rawLabel length] > 9 && [[rawLabel substringWithRange:NSMakeRange(0, 4)] isEqual:@"_$!<"]) {
 		label = [rawLabel substringWithRange:NSMakeRange(4, [rawLabel length] - 8)];
 	} else {
-		label = [[rawLabel copy] autorelease];
+		label = [rawLabel copy];
 	}
 	
 	// Lowercase unless iPhone
 	if ([label isEqual:(NSString *)kABPersonPhoneIPhoneLabel] == NO) {
 		label = [label lowercaseString];
+	}
+	
+	// if label is custom, make sure to return a "custom" label instead of nil or null
+	if ( label == (id)[NSNull null] || label.length == 0 )
+	{
+		label = @"custom";
 	}
 	
 	return label;
@@ -49,7 +53,7 @@ NSInteger kSSPersonViewControllerDeleteActionSheetTag = 987;
 
 - (id)init {
 	if ((self = [super initWithStyle:UITableViewStyleGrouped])) {
-		_headerView = [[SSPersonHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 84.0)];
+		_headerView = [[AVContactsHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 84.0)];
 		_numberOfSections = 1;
 		_rowCounts = [[NSMutableArray alloc] init];
 		_cellData = [[NSMutableDictionary alloc] init];
@@ -58,22 +62,20 @@ NSInteger kSSPersonViewControllerDeleteActionSheetTag = 987;
 }
 
 
-- (void)dealloc {
-	if (_addressBook) {
-		CFRelease(_addressBook);
-		_addressBook = nil;
+- (void)dealloc
+{
+	if ( _personsAddressBook )
+	{
+		CFRelease( _personsAddressBook );
+		_personsAddressBook = nil;
 	}
 	
-	if (_displayedPerson) {
-		CFRelease(_displayedPerson);
+	if ( _displayedPerson )
+	{
+		CFRelease( _displayedPerson );
 		_displayedPerson = nil;
 	}
 	
-	[_headerView release];
-	[_footerView release];
-	[_rowCounts release];
-	[_cellData release];
-	[super dealloc];
 }
 
 
@@ -107,60 +109,36 @@ NSInteger kSSPersonViewControllerDeleteActionSheetTag = 987;
 	self.title = @"Info";
 	self.tableView.tableHeaderView = _headerView;
 	
-	_footerView = [[SSPersonFooterView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, 74.0)];
+	_footerView = [[AVContactsFooterView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, 74.0)];
 	self.tableView.tableFooterView = _footerView;
-	
-	[_footerView.editButton addTarget:self action:@selector(editPerson:) forControlEvents:UIControlEventTouchUpInside];
-	[_footerView.deleteButton addTarget:self action:@selector(deletePerson:) forControlEvents:UIControlEventTouchUpInside];
 }
-
-
-#pragma mark Actions
-
-- (void)editPerson:(id)sender {
-	SSEditPersonViewController *viewController = [[SSEditPersonViewController alloc] init];
-	viewController.displayedPerson = self.displayedPerson;
-	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-	[viewController release];
-	[self.navigationController presentModalViewController:navigationController animated:YES];
-	[navigationController release];
-}
-
-
-- (void)deletePerson:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete Contact" otherButtonTitles:nil];
-	actionSheet.tag = kSSPersonViewControllerDeleteActionSheetTag;
-	[actionSheet showInView:self.view];
-	[actionSheet release];
-}
-
 
 #pragma mark Getters
 
 - (ABAddressBookRef)addressBook {
-	if (_addressBook) {
-		return _addressBook;
+	if (_personsAddressBook) {
+		return _personsAddressBook;
 	}
 	
 	// Create one if none exists	
-	_addressBook = ABAddressBookCreate();
-	return _addressBook;
+	_personsAddressBook = ABAddressBookCreateWithOptions( nil , nil );
+	return _personsAddressBook;
 }
 
 
 #pragma mark Setters
 
 - (void)setAddressBook:(ABAddressBookRef)book {
-	if (_addressBook) {
-		CFRelease(_addressBook);
-		_addressBook = nil;
+	if (_personsAddressBook) {
+		CFRelease(_personsAddressBook);
+		_personsAddressBook = nil;
 	}
 	
 	if (!book) {
 		return;
 	}
 	
-	_addressBook = CFRetain(book);
+	_personsAddressBook = CFRetain(book);
 }
 
 
@@ -177,10 +155,9 @@ NSInteger kSSPersonViewControllerDeleteActionSheetTag = 987;
 	
 	// Image
 	if (ABPersonHasImageData(_displayedPerson)) {
-		NSData *imageData = (NSData *)ABPersonCopyImageData(_displayedPerson);
+		NSData *imageData = (NSData *)CFBridgingRelease(ABPersonCopyImageData(_displayedPerson));
 		UIImage *image = [UIImage imageWithData:imageData];
 		_headerView.image = image;
-		[imageData release];
 	} else {
 		_headerView.image = nil;
 	}
@@ -197,20 +174,17 @@ NSInteger kSSPersonViewControllerDeleteActionSheetTag = 987;
 	NSMutableArray *namePieces = [[NSMutableArray alloc] init];
 	NSInteger namePiecesTotal = sizeof(nameProperties) / sizeof(ABPropertyID);
 	for (NSInteger i = 0; i < namePiecesTotal; i++) {
-		NSString *piece = (NSString *)ABRecordCopyValue(_displayedPerson, nameProperties[i]);
+		NSString *piece = (NSString *)CFBridgingRelease(ABRecordCopyValue(_displayedPerson, nameProperties[i]));
 		if (piece) {
 			[namePieces addObject:piece];
-			[piece release];
 		}
 	}
 	
 	_headerView.personName = [namePieces componentsJoinedByString:@" "];
-	[namePieces release];
 	
 	// Organization
-	NSString *organizationName = (NSString *)ABRecordCopyValue(_displayedPerson, kABPersonOrganizationProperty);
+	NSString *organizationName = (NSString *)CFBridgingRelease(ABRecordCopyValue(_displayedPerson, kABPersonOrganizationProperty));
 	_headerView.organizationName = organizationName;
-	[organizationName release];
 	
 	// Multivalues
 	_numberOfSections = 0;
@@ -232,7 +206,7 @@ NSInteger kSSPersonViewControllerDeleteActionSheetTag = 987;
 		
 		if (valuesCount > 0) {
 			_numberOfSections++;
-			[_rowCounts addObject:[NSNumber numberWithInteger:valuesCount]];
+			[_rowCounts addObject:@(valuesCount)];
 		} else {
 			//CFRelease(valuesRef);
 			continue;
@@ -243,12 +217,11 @@ NSInteger kSSPersonViewControllerDeleteActionSheetTag = 987;
 			NSIndexPath *indexPath = [NSIndexPath indexPathForRow:k inSection:_numberOfSections - 1];
 			
 			// Get label
-			NSString *rawLabel = (NSString *)ABMultiValueCopyLabelAtIndex(valuesRef, k);
+			NSString *rawLabel = (NSString *)CFBridgingRelease(ABMultiValueCopyLabelAtIndex(valuesRef, k));
 			NSString *label = [[self class] _formatLabel:rawLabel];
-			[rawLabel release];
 			
 			// Get value
-			NSString *value = (NSString *)ABMultiValueCopyValueAtIndex(valuesRef, k);
+			NSString *value = (NSString *)CFBridgingRelease(ABMultiValueCopyValueAtIndex(valuesRef, k));
 			
 			// Merge address dictionary
 			if (i == 3 && [value isKindOfClass:[NSDictionary class]]) {
@@ -256,11 +229,11 @@ NSInteger kSSPersonViewControllerDeleteActionSheetTag = 987;
 				
 				NSMutableString *addressString = [[NSMutableString alloc] init];
 				
-				NSString *street = [addressDictionary objectForKey:(NSString *)kABPersonAddressStreetKey];
-				NSString *city = [addressDictionary objectForKey:(NSString *)kABPersonAddressCityKey];
-				NSString *state = [addressDictionary objectForKey:(NSString *)kABPersonAddressStateKey];
-				NSString *zip = [addressDictionary objectForKey:(NSString *)kABPersonAddressZIPKey];
-				NSString *country = [addressDictionary objectForKey:(NSString *)kABPersonAddressCountryKey];
+				NSString *street = addressDictionary[(NSString *)kABPersonAddressStreetKey];
+				NSString *city = addressDictionary[(NSString *)kABPersonAddressCityKey];
+				NSString *state = addressDictionary[(NSString *)kABPersonAddressStateKey];
+				NSString *zip = addressDictionary[(NSString *)kABPersonAddressZIPKey];
+				NSString *country = addressDictionary[(NSString *)kABPersonAddressCountryKey];
 				
 				// Street
 				if (street) {
@@ -299,12 +272,11 @@ NSInteger kSSPersonViewControllerDeleteActionSheetTag = 987;
 					[addressString appendString:country];
 				}
 				
-				[value release];
 				value = addressString;
 			}
 			
 			// Get url
-			NSString *urlString = nil;
+			NSURL *urlString = nil;
 			switch (i) {
 					// Phone number
 				case 0: {
@@ -312,19 +284,19 @@ NSInteger kSSPersonViewControllerDeleteActionSheetTag = 987;
 					cleanedValue = [cleanedValue stringByReplacingOccurrencesOfString:@"-" withString:@""];
 					cleanedValue = [cleanedValue stringByReplacingOccurrencesOfString:@"(" withString:@""];
 					cleanedValue = [cleanedValue stringByReplacingOccurrencesOfString:@")" withString:@""];
-					urlString = [NSString stringWithFormat:@"tel://%@", value];
+					urlString = [NSURL URLWithString: [NSString stringWithFormat:@"tel://%@", cleanedValue]];
 					break;
 				}
 					
 					// Email
 				case 1: {
-					urlString = [NSString stringWithFormat:@"mailto:%@", value];
+					urlString = [NSURL URLWithString: [NSString stringWithFormat:@"mailto:%@", value]];
 					break;
 				}
 					
 					// URL
 				case 2: {
-					urlString = value;
+					urlString = [NSURL URLWithString: value];
 					break;
 				}
 					
@@ -332,45 +304,42 @@ NSInteger kSSPersonViewControllerDeleteActionSheetTag = 987;
 				case 3: {
 					// This functionality is in SSToolkit's NSString category, but I wanted to remove and external
 					// dependencies, so it's implemention is copied here.
-					NSString *urlEncodedString = (NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)value,
+					NSString *urlEncodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)value,
 																									 NULL, CFSTR("!*'();:@&=+$,/?%#[]"),
-																									 kCFStringEncodingUTF8);
-					urlString = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@", urlEncodedString];
-					[urlEncodedString release];
+																									 kCFStringEncodingUTF8));
+					urlString = [NSURL URLWithString: [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@", urlEncodedString]];
 					break;
 				}
 			}
 			
+			// should check first if object is nil
+			// if it is nil, inserting it to the dictionary will result to an error
+			// so make sure to insert a non-nil object
+			if ( urlString == nil )
+				urlString = [NSURL URLWithString: @""];
+			
 			// Add dictionary to cell data
-			NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
-										label, @"label",
-										value, @"value",
-										[NSURL URLWithString:urlString], @"url",
-										[NSNumber numberWithInteger:property], @"property",
-										nil];
-			[value release];
-			[_cellData setObject:dictionary forKey:indexPath];
-			[dictionary release];
+			NSDictionary *dictionary = @{@"label": label,
+										@"value": value,
+										@"url": urlString,
+										@"property": @(property)};
+			_cellData[indexPath] = dictionary;
 		}
 		
 		CFRelease(valuesRef);
 	}
 	
 	// Note
-	NSString *note = (NSString *)ABRecordCopyValue(_displayedPerson, kABPersonNoteProperty);
+	NSString *note = (NSString *)CFBridgingRelease(ABRecordCopyValue(_displayedPerson, kABPersonNoteProperty));
 	if (note) {
 		_numberOfSections++;
-		[_rowCounts addObject:[NSNumber numberWithInteger:1]];
+		[_rowCounts addObject:@1];
 		
-		NSDictionary *noteDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
-										@"notes", @"label",
-										note, @"value",
-										[NSNumber numberWithInteger:kABPersonNoteProperty], @"property",
-										nil];
-		[_cellData setObject:noteDictionary forKey:[NSIndexPath indexPathForRow:0 inSection:_numberOfSections - 1]];
-		[noteDictionary release];
+		NSDictionary *noteDictionary = @{@"label": @"notes",
+										@"value": note,
+										@"property": @(kABPersonNoteProperty)};
+		_cellData[[NSIndexPath indexPathForRow:0 inSection:_numberOfSections - 1]] = noteDictionary;
 	}
-	[note release];
 	
 	// Reload table
 	if (_numberOfSections < 1) {
@@ -391,7 +360,7 @@ NSInteger kSSPersonViewControllerDeleteActionSheetTag = 987;
 	if ([_rowCounts count] == 0) {
 		return 0;
 	}
-	return [[_rowCounts objectAtIndex:section] integerValue];
+	return [_rowCounts[section] integerValue];
 }
 
 
@@ -399,24 +368,24 @@ NSInteger kSSPersonViewControllerDeleteActionSheetTag = 987;
 	static NSString *valueCellIdentifier = @"valueCellIdentifier";
 	static NSString *addressValueCellIdentifier = @"addressValueCellIdentifier";
 	
-	NSDictionary *cellDictionary = [_cellData objectForKey:indexPath];
+	NSDictionary *cellDictionary = _cellData[indexPath];
 	UITableViewCell *cell = nil;
 	
-	if ([[cellDictionary objectForKey:@"property"] integerValue] == kABPersonAddressProperty) {
+	if ([cellDictionary[@"property"] integerValue] == kABPersonAddressProperty) {
 		cell = [tableView dequeueReusableCellWithIdentifier:addressValueCellIdentifier];
 		if (!cell) {
-			cell = [[[SSPersonAddressTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:addressValueCellIdentifier] autorelease];
+			cell = [[AVContactsAddressTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:addressValueCellIdentifier];
 		}
 	} else {
 		cell = [tableView dequeueReusableCellWithIdentifier:valueCellIdentifier];
 		if (!cell) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:valueCellIdentifier] autorelease];
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:valueCellIdentifier];
 		}
 	}
 	
-	cell.textLabel.text = [cellDictionary objectForKey:@"label"];
-	cell.detailTextLabel.text = [cellDictionary objectForKey:@"value"];
-	cell.selectionStyle = [[UIApplication sharedApplication] canOpenURL:[cellDictionary objectForKey:@"url"]] ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+	cell.textLabel.text = cellDictionary[@"label"];
+	cell.detailTextLabel.text = cellDictionary[@"value"];
+	cell.selectionStyle = [[UIApplication sharedApplication] canOpenURL:cellDictionary[@"url"]] ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 	
 	return cell;
 }
@@ -425,9 +394,9 @@ NSInteger kSSPersonViewControllerDeleteActionSheetTag = 987;
 #pragma mark UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSDictionary *cellDictionary = [_cellData objectForKey:indexPath];
-	if ([[cellDictionary objectForKey:@"property"] integerValue] == kABPersonAddressProperty) {
-		return [SSPersonAddressTableViewCell heightForDetailText:[cellDictionary objectForKey:@"value"] tableWidth:self.tableView.frame.size.width];
+	NSDictionary *cellDictionary = _cellData[indexPath];
+	if ([cellDictionary[@"property"] integerValue] == kABPersonAddressProperty) {
+		return [AVContactsAddressTableViewCell heightForDetailText:cellDictionary[@"value"] tableWidth:self.tableView.frame.size.width];
 	}
 	return 44.0;
 }
@@ -436,15 +405,15 @@ NSInteger kSSPersonViewControllerDeleteActionSheetTag = 987;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
-	NSDictionary *cellDictionary = [_cellData objectForKey:indexPath];
-	[[UIApplication sharedApplication] openURL:[cellDictionary objectForKey:@"url"]];
+	NSDictionary *cellDictionary = _cellData[indexPath];
+	[[UIApplication sharedApplication] openURL:cellDictionary[@"url"]];
 }
 
 
 #pragma mark UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (actionSheet.tag != kSSPersonViewControllerDeleteActionSheetTag) {
+	if (actionSheet.tag != kAVContactsViewControllerDeleteActionSheetTag) {
 		return;
 	}
 	

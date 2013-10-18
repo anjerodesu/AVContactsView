@@ -15,10 +15,6 @@
 
 #pragma mark NSObject
 
-- (void)dealloc {
-	[_window release];
-	[super dealloc];
-}
 
 
 #pragma mark UIApplicationDelegate
@@ -29,9 +25,7 @@
 	
 	PVDemoViewController *viewController = [[PVDemoViewController alloc] init];
 	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-	[viewController release];
 	_window.rootViewController = navigationController;
-	[navigationController release];
 	
 	[_window makeKeyAndVisible];
 	

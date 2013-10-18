@@ -8,9 +8,7 @@
 
 #import <AddressBookUI/AddressBookUI.h>
 
-@interface PVDemoViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate> {
-
-}
+@interface PVDemoViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate>
 
 - (void)pickPerson:(id)sender;
 

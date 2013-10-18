@@ -7,18 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		172AC08A180E9985004A031D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 172AC089180E9985004A031D /* Default-568h@2x.png */; };
+		17B858001811B2D300AFA873 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17B857FF1811B2D300AFA873 /* Images.xcassets */; };
 		B28CC08712FF59BA000677BE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B28CC08612FF59BA000677BE /* UIKit.framework */; };
 		B28CC08912FF59BA000677BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B28CC08812FF59BA000677BE /* Foundation.framework */; };
 		B28CC08B12FF59BA000677BE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B28CC08A12FF59BA000677BE /* CoreGraphics.framework */; };
 		B28CC0BB12FF5A1C000677BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B28CC0B512FF5A1C000677BE /* main.m */; };
-		B28CC0CB12FF5BAD000677BE /* SSEditPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B28CC0C412FF5BAD000677BE /* SSEditPersonViewController.m */; };
-		B28CC0CC12FF5BAD000677BE /* SSPersonFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B28CC0C612FF5BAD000677BE /* SSPersonFooterView.m */; };
-		B28CC0CD12FF5BAD000677BE /* SSPersonHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B28CC0C812FF5BAD000677BE /* SSPersonHeaderView.m */; };
-		B28CC0CE12FF5BAD000677BE /* SSPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B28CC0CA12FF5BAD000677BE /* SSPersonViewController.m */; };
+		B28CC0CC12FF5BAD000677BE /* AVContactsFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B28CC0C612FF5BAD000677BE /* AVContactsFooterView.m */; };
+		B28CC0CD12FF5BAD000677BE /* AVContactsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B28CC0C812FF5BAD000677BE /* AVContactsHeaderView.m */; };
+		B28CC0CE12FF5BAD000677BE /* AVContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B28CC0CA12FF5BAD000677BE /* AVContactsViewController.m */; };
 		B28CC0D112FF5BE4000677BE /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B28CC0CF12FF5BE4000677BE /* AddressBook.framework */; };
 		B28CC0D212FF5BE4000677BE /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B28CC0D012FF5BE4000677BE /* AddressBookUI.framework */; };
 		B28CC0D412FF5C04000677BE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B28CC0D312FF5C04000677BE /* QuartzCore.framework */; };
-		B28CC0D712FF5C30000677BE /* SSPersonAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B28CC0D612FF5C30000677BE /* SSPersonAddressTableViewCell.m */; };
+		B28CC0D712FF5C30000677BE /* AVContactsAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B28CC0D612FF5C30000677BE /* AVContactsAddressTableViewCell.m */; };
 		B28CC0EF12FF5D3B000677BE /* PersonAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B28CC0EC12FF5D3B000677BE /* PersonAppDelegate.m */; };
 		B28CC0F012FF5D3B000677BE /* PVDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B28CC0EE12FF5D3B000677BE /* PVDemoViewController.m */; };
 		B28CC0F612FF5E34000677BE /* ABPictureOrganization.png in Resources */ = {isa = PBXBuildFile; fileRef = B28CC0F212FF5E34000677BE /* ABPictureOrganization.png */; };
@@ -28,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		172AC089180E9985004A031D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		17B857FF1811B2D300AFA873 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Person/Images.xcassets; sourceTree = "<group>"; };
 		B28CC08212FF59BA000677BE /* Person.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Person.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B28CC08612FF59BA000677BE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B28CC08812FF59BA000677BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -35,19 +38,17 @@
 		B28CC0B512FF5A1C000677BE /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B28CC0B612FF5A1C000677BE /* Person-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Person-Prefix.pch"; sourceTree = "<group>"; };
 		B28CC0BA12FF5A1C000677BE /* Person-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Person-Info.plist"; sourceTree = "<group>"; };
-		B28CC0C312FF5BAD000677BE /* SSEditPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSEditPersonViewController.h; path = ../../SSEditPersonViewController.h; sourceTree = "<group>"; };
-		B28CC0C412FF5BAD000677BE /* SSEditPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSEditPersonViewController.m; path = ../../SSEditPersonViewController.m; sourceTree = "<group>"; };
-		B28CC0C512FF5BAD000677BE /* SSPersonFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSPersonFooterView.h; path = ../../SSPersonFooterView.h; sourceTree = "<group>"; };
-		B28CC0C612FF5BAD000677BE /* SSPersonFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSPersonFooterView.m; path = ../../SSPersonFooterView.m; sourceTree = "<group>"; };
-		B28CC0C712FF5BAD000677BE /* SSPersonHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSPersonHeaderView.h; path = ../../SSPersonHeaderView.h; sourceTree = "<group>"; };
-		B28CC0C812FF5BAD000677BE /* SSPersonHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSPersonHeaderView.m; path = ../../SSPersonHeaderView.m; sourceTree = "<group>"; };
-		B28CC0C912FF5BAD000677BE /* SSPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSPersonViewController.h; path = ../../SSPersonViewController.h; sourceTree = "<group>"; };
-		B28CC0CA12FF5BAD000677BE /* SSPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSPersonViewController.m; path = ../../SSPersonViewController.m; sourceTree = "<group>"; };
+		B28CC0C512FF5BAD000677BE /* AVContactsFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVContactsFooterView.h; path = ../../AVContactsFooterView.h; sourceTree = "<group>"; };
+		B28CC0C612FF5BAD000677BE /* AVContactsFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVContactsFooterView.m; path = ../../AVContactsFooterView.m; sourceTree = "<group>"; };
+		B28CC0C712FF5BAD000677BE /* AVContactsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVContactsHeaderView.h; path = ../../AVContactsHeaderView.h; sourceTree = "<group>"; };
+		B28CC0C812FF5BAD000677BE /* AVContactsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVContactsHeaderView.m; path = ../../AVContactsHeaderView.m; sourceTree = "<group>"; };
+		B28CC0C912FF5BAD000677BE /* AVContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVContactsViewController.h; path = ../../AVContactsViewController.h; sourceTree = "<group>"; };
+		B28CC0CA12FF5BAD000677BE /* AVContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVContactsViewController.m; path = ../../AVContactsViewController.m; sourceTree = "<group>"; };
 		B28CC0CF12FF5BE4000677BE /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		B28CC0D012FF5BE4000677BE /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		B28CC0D312FF5C04000677BE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		B28CC0D512FF5C30000677BE /* SSPersonAddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSPersonAddressTableViewCell.h; path = ../../SSPersonAddressTableViewCell.h; sourceTree = "<group>"; };
-		B28CC0D612FF5C30000677BE /* SSPersonAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSPersonAddressTableViewCell.m; path = ../../SSPersonAddressTableViewCell.m; sourceTree = "<group>"; };
+		B28CC0D512FF5C30000677BE /* AVContactsAddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVContactsAddressTableViewCell.h; path = ../../AVContactsAddressTableViewCell.h; sourceTree = "<group>"; };
+		B28CC0D612FF5C30000677BE /* AVContactsAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVContactsAddressTableViewCell.m; path = ../../AVContactsAddressTableViewCell.m; sourceTree = "<group>"; };
 		B28CC0EB12FF5D3B000677BE /* PersonAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonAppDelegate.h; sourceTree = "<group>"; };
 		B28CC0EC12FF5D3B000677BE /* PersonAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonAppDelegate.m; sourceTree = "<group>"; };
 		B28CC0ED12FF5D3B000677BE /* PVDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVDemoViewController.h; sourceTree = "<group>"; };
@@ -78,6 +79,8 @@
 		B28CC07712FF59BA000677BE = {
 			isa = PBXGroup;
 			children = (
+				17B857FF1811B2D300AFA873 /* Images.xcassets */,
+				172AC089180E9985004A031D /* Default-568h@2x.png */,
 				B28CC0BE12FF5A2D000677BE /* Demo */,
 				B28CC0C212FF5B7E000677BE /* Person View Controller */,
 			);
@@ -142,16 +145,14 @@
 			isa = PBXGroup;
 			children = (
 				B28CC0F112FF5E34000677BE /* Images */,
-				B28CC0D512FF5C30000677BE /* SSPersonAddressTableViewCell.h */,
-				B28CC0D612FF5C30000677BE /* SSPersonAddressTableViewCell.m */,
-				B28CC0C312FF5BAD000677BE /* SSEditPersonViewController.h */,
-				B28CC0C412FF5BAD000677BE /* SSEditPersonViewController.m */,
-				B28CC0C512FF5BAD000677BE /* SSPersonFooterView.h */,
-				B28CC0C612FF5BAD000677BE /* SSPersonFooterView.m */,
-				B28CC0C712FF5BAD000677BE /* SSPersonHeaderView.h */,
-				B28CC0C812FF5BAD000677BE /* SSPersonHeaderView.m */,
-				B28CC0C912FF5BAD000677BE /* SSPersonViewController.h */,
-				B28CC0CA12FF5BAD000677BE /* SSPersonViewController.m */,
+				B28CC0D512FF5C30000677BE /* AVContactsAddressTableViewCell.h */,
+				B28CC0D612FF5C30000677BE /* AVContactsAddressTableViewCell.m */,
+				B28CC0C512FF5BAD000677BE /* AVContactsFooterView.h */,
+				B28CC0C612FF5BAD000677BE /* AVContactsFooterView.m */,
+				B28CC0C712FF5BAD000677BE /* AVContactsHeaderView.h */,
+				B28CC0C812FF5BAD000677BE /* AVContactsHeaderView.m */,
+				B28CC0C912FF5BAD000677BE /* AVContactsViewController.h */,
+				B28CC0CA12FF5BAD000677BE /* AVContactsViewController.m */,
 			);
 			name = "Person View Controller";
 			path = Classes;
@@ -206,6 +207,7 @@
 		B28CC07912FF59BA000677BE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Sam Soffes";
 			};
 			buildConfigurationList = B28CC07C12FF59BA000677BE /* Build configuration list for PBXProject "Person" */;
@@ -233,6 +235,8 @@
 				B28CC0F612FF5E34000677BE /* ABPictureOrganization.png in Resources */,
 				B28CC0F712FF5E34000677BE /* ABPictureOrganization@2x.png in Resources */,
 				B28CC0F812FF5E34000677BE /* ABPicturePerson.png in Resources */,
+				17B858001811B2D300AFA873 /* Images.xcassets in Resources */,
+				172AC08A180E9985004A031D /* Default-568h@2x.png in Resources */,
 				B28CC0F912FF5E34000677BE /* ABPicturePerson@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,11 +249,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B28CC0BB12FF5A1C000677BE /* main.m in Sources */,
-				B28CC0CB12FF5BAD000677BE /* SSEditPersonViewController.m in Sources */,
-				B28CC0CC12FF5BAD000677BE /* SSPersonFooterView.m in Sources */,
-				B28CC0CD12FF5BAD000677BE /* SSPersonHeaderView.m in Sources */,
-				B28CC0CE12FF5BAD000677BE /* SSPersonViewController.m in Sources */,
-				B28CC0D712FF5C30000677BE /* SSPersonAddressTableViewCell.m in Sources */,
+				B28CC0CC12FF5BAD000677BE /* AVContactsFooterView.m in Sources */,
+				B28CC0CD12FF5BAD000677BE /* AVContactsHeaderView.m in Sources */,
+				B28CC0CE12FF5BAD000677BE /* AVContactsViewController.m in Sources */,
+				B28CC0D712FF5C30000677BE /* AVContactsAddressTableViewCell.m in Sources */,
 				B28CC0EF12FF5D3B000677BE /* PersonAppDelegate.m in Sources */,
 				B28CC0F012FF5D3B000677BE /* PVDemoViewController.m in Sources */,
 			);
@@ -261,7 +264,6 @@
 		B28CC0A612FF59BA000677BE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -269,7 +271,8 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -278,13 +281,12 @@
 		B28CC0A712FF59BA000677BE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -295,6 +297,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -302,6 +307,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Resources/Person-Info.plist";
 				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -311,12 +317,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Other Sources/Person-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Resources/Person-Info.plist";
 				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;

@@ -7,7 +7,7 @@
 //
 
 #import "PVDemoViewController.h"
-#import "SSPersonViewController.h"
+#import "AVContactsViewController.h"
 
 @implementation PVDemoViewController
 
@@ -18,11 +18,12 @@
 	self.title = @"Person";
 	self.view.backgroundColor = [UIColor whiteColor];
 	
-	UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	button.frame = CGRectMake(20.0, 20.0, 280.0, 37.0);
-	[button setTitle:@"Pick Person" forState:UIControlStateNormal];
-	[button addTarget:self action:@selector(pickPerson:) forControlEvents:UIControlEventTouchUpInside];
-	[self.view addSubview:button];
+	UIButton *button = [[UIButton alloc] initWithFrame: CGRectMake( 20.0 , 100.0 , 280.0 , 40.0 )];
+	[button setTitleColor: [UIColor colorWithRed: 15.0f / 255.0f green: 118.0f / 255.0f blue: 223.0f / 255.0f alpha: 1] forState: UIControlStateNormal];
+	[button setTitle: @"Pick Person" forState: UIControlStateNormal];
+	[button addTarget: self action: @selector( pickPerson: ) forControlEvents: UIControlEventTouchUpInside];
+	button.titleLabel.font = [UIFont systemFontOfSize: 30.0f];
+	[self.view addSubview: button];
 }
 
 
@@ -36,22 +37,21 @@
 
 #pragma mark Actions
 
-- (void)pickPerson:(id)sender {
+- (void)pickPerson:(id)sender
+{
 	ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController  alloc] init];
 	picker.peoplePickerDelegate = self;
-	[self.navigationController presentModalViewController:picker animated:YES];
-	[picker release];
+	[self.navigationController presentViewController: picker animated: YES completion: nil];
 }
 
 
 #pragma mark ABPeoplePickerNavigationControllerDelegate
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person {
-	[self.navigationController dismissModalViewControllerAnimated:YES];
+	[self.navigationController dismissViewControllerAnimated: YES completion: nil];
 	
-	SSPersonViewController *personViewController = [[SSPersonViewController alloc] initWithPerson:person addressBook:peoplePicker.addressBook];
+	AVContactsViewController *personViewController = [[AVContactsViewController alloc] initWithPerson:person addressBook:peoplePicker.addressBook];
 	[self.navigationController pushViewController:personViewController animated:YES];
-	[personViewController release];
 	
 	return NO;
 }
@@ -63,7 +63,7 @@
 
 
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker {
-	[self.navigationController dismissModalViewControllerAnimated:YES];
+	[self.navigationController dismissViewControllerAnimated: YES completion: nil];
 }
 
 @end

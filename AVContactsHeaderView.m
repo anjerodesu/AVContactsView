@@ -1,21 +1,21 @@
 //
-//  SSPersonHeaderView.m
+//  AVContactsHeaderView.m
 //  SSToolkit
 //
 //  Created by Sam Soffes on 9/8/10.
 //  Copyright 2010 Sam Soffes. All rights reserved.
 //
 
-#import "SSPersonHeaderView.h"
+#import "AVContactsHeaderView.h"
 #import <QuartzCore/QuartzCore.h>
 
-static CGFloat kSSPersonHeaderViewImageSize = 64.0;
+static CGFloat kAVContactsHeaderViewImageSize = 64.0;
 
-@interface SSPersonHeaderView (PrivateMethods)
+@interface AVContactsHeaderView (PrivateMethods)
 - (void)_updateImage;
 @end
 
-@implementation SSPersonHeaderView
+@implementation AVContactsHeaderView
 
 @synthesize organization = _organization;
 @synthesize alignImageToLeft = _alignImageToLeft;
@@ -27,11 +27,7 @@ static CGFloat kSSPersonHeaderViewImageSize = 64.0;
 
 - (void)dealloc {
 	[_imageView removeFromSuperview];
-	[_imageView release];
 	
-	self.personName = nil;
-	self.organizationName = nil;
-	[super dealloc];
 }
 
 
@@ -56,7 +52,7 @@ static CGFloat kSSPersonHeaderViewImageSize = 64.0;
 
 
 - (void)layoutSubviews {
-	_imageView.frame = CGRectMake(_alignImageToLeft ? 10.0 : 19.0, 15.0, kSSPersonHeaderViewImageSize, kSSPersonHeaderViewImageSize);
+	_imageView.frame = CGRectMake(_alignImageToLeft ? 10.0 : 19.0, 15.0, kAVContactsHeaderViewImageSize, kAVContactsHeaderViewImageSize);
 }
 
 
@@ -65,7 +61,7 @@ static CGFloat kSSPersonHeaderViewImageSize = 64.0;
 
 	CGFloat width = self.frame.size.width - 105.0;
 	CGSize constraintSize = CGSizeMake(width, 200.0);
-	UILineBreakMode lineBreakMode = UILineBreakModeWordWrap;
+	NSLineBreakMode	lineBreakMode = NSLineBreakByWordWrapping;
 	UIColor *textColor = [UIColor blackColor];
 	UIColor *shadowTextColor = [UIColor whiteColor];
 	UIFont *personNameFont = [UIFont boldSystemFontOfSize:18.0];
@@ -78,9 +74,9 @@ static CGFloat kSSPersonHeaderViewImageSize = 64.0;
 	// Draw person name
 	CGFloat personNameY = 15.0;
 	if (_organizationName) {
-		personNameY += roundf((kSSPersonHeaderViewImageSize - personNameSize.height - organizationNameSize.height) / 2.0);
+		personNameY += roundf((kAVContactsHeaderViewImageSize - personNameSize.height - organizationNameSize.height) / 2.0);
 	} else {
-		personNameY += roundf((kSSPersonHeaderViewImageSize - personNameSize.height) / 2.0);
+		personNameY += roundf((kAVContactsHeaderViewImageSize - personNameSize.height) / 2.0);
 	}
 	CGRect personNameRect = CGRectMake(textX, personNameY, personNameSize.width, personNameSize.height);
 	
@@ -116,7 +112,7 @@ static CGFloat kSSPersonHeaderViewImageSize = 64.0;
 		return;
 	}
 	
-	_imageView.image = [UIImage imageNamed:(_organization ? @"ABPictureOrganization.png" : @"ABPicturePerson.png")];
+	_imageView.image = [UIImage imageNamed: ( _organization ? @"ABPictureOrganization.png" : @"ABPicturePerson.png" )];
 	_imageView.layer.borderColor = nil;
 	_imageView.layer.borderWidth = 0.0;
 }
