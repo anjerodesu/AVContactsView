@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Avcontactsview by anjerodesu</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Avcontactsview</h1>
+        <p>Clone of Apple's ABPerson view controller in AddressBookUI.framework to allow for better customization.</p>
+
+        <p class="view"><a href="https://github.com/anjerodesu/AVContactsView">View the Project on GitHub <small>anjerodesu/AVContactsView</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/anjerodesu/AVContactsView/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/anjerodesu/AVContactsView/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/anjerodesu/AVContactsView">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="sspersonviewcontroller" class="anchor" href="#sspersonviewcontroller"><span class="octicon octicon-link"></span></a>SSPersonViewController</h1>
+
+<p>Clone of Apple's ABPerson view controller in AddressBookUI.framework to allow for better customization.</p>
+
+<h2>
+<a name="installing" class="anchor" href="#installing"><span class="octicon octicon-link"></span></a>Installing</h2>
+
+<ol>
+<li>Copy all of the classes and images to your project (except the contents of the <em>Demo</em> folder of course)</li>
+<li>Add <code>AddressBook.framework</code> and <code>AddressBookUI.framework</code> to your target</li>
+</ol><h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Simply initialize the view controller with the person and address book.</p>
+
+<pre><code>SSPersonViewController *personViewController = [[SSPersonViewController alloc] initWithPerson:person addressBook:addressBook];
+[self.navigationController pushViewController:personViewController animated:YES];
+[personViewController release];
+</code></pre>
+
+<p>See the demo project for further examples.</p>
+
+<h2>
+<a name="history" class="anchor" href="#history"><span class="octicon octicon-link"></span></a>History</h2>
+
+<p>I originally wrote this for a client. They said it would be fine if I open sourced it and put it in <a href="http://github.com/samsoffes/sstoolkit">SSToolkit</a>. I had it in a <a href="https://github.com/samsoffes/sstoolkit/tree/person">topic branch</a> for awhile, but decided to move it to it's own repository instead of adding it to SSToolkit. I figured that most people probably won't use this, but they would have to add <code>AddressBook.framework</code> and <code>AddressBookUI.framework</code> to their project just to use SSToolkit. I also don't plan on working on this any time soon.</p>
+
+<p>I did the same thing for <a href="https://github.com/samsoffes/ssmessagesviewcontroller">SSMessagesViewController</a>.</p>
+
+<h2>
+<a name="bugs" class="anchor" href="#bugs"><span class="octicon octicon-link"></span></a>Bugs</h2>
+
+<p>There is <a href="https://github.com/samsoffes/sspersonviewcontroller/issues#issue/1">one known bug</a>. The view will not refresh its data when the address book changes. Feel free to fork and improve!</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/anjerodesu">anjerodesu</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
