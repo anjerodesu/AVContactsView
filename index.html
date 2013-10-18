@@ -29,9 +29,9 @@
       </header>
       <section>
         <h1>
-<a name="sspersonviewcontroller" class="anchor" href="#sspersonviewcontroller"><span class="octicon octicon-link"></span></a>SSPersonViewController</h1>
+<a name="avcontactsview" class="anchor" href="#avcontactsview"><span class="octicon octicon-link"></span></a>AVContactsView</h1>
 
-<p>Clone of Apple's ABPerson view controller in AddressBookUI.framework to allow for better customization.</p>
+<p>Clone of Apple's <code>ABPerson</code> view controller in <code>AddressBookUI.framework</code> to allow for better customisation.</p>
 
 <h2>
 <a name="installing" class="anchor" href="#installing"><span class="octicon octicon-link"></span></a>Installing</h2>
@@ -42,11 +42,10 @@
 </ol><h2>
 <a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<p>Simply initialize the view controller with the person and address book.</p>
+<p>Simply initialise the view controller with the person and address book.</p>
 
-<pre><code>SSPersonViewController *personViewController = [[SSPersonViewController alloc] initWithPerson:person addressBook:addressBook];
-[self.navigationController pushViewController:personViewController animated:YES];
-[personViewController release];
+<pre><code>AVContactsView *personViewController = [[AVContactsView alloc] initWithPerson: person addressBook: addressBook];
+[self.navigationController pushViewController: personViewController animated: YES];
 </code></pre>
 
 <p>See the demo project for further examples.</p>
@@ -54,14 +53,21 @@
 <h2>
 <a name="history" class="anchor" href="#history"><span class="octicon octicon-link"></span></a>History</h2>
 
-<p>I originally wrote this for a client. They said it would be fine if I open sourced it and put it in <a href="http://github.com/samsoffes/sstoolkit">SSToolkit</a>. I had it in a <a href="https://github.com/samsoffes/sstoolkit/tree/person">topic branch</a> for awhile, but decided to move it to it's own repository instead of adding it to SSToolkit. I figured that most people probably won't use this, but they would have to add <code>AddressBook.framework</code> and <code>AddressBookUI.framework</code> to their project just to use SSToolkit. I also don't plan on working on this any time soon.</p>
-
-<p>I did the same thing for <a href="https://github.com/samsoffes/ssmessagesviewcontroller">SSMessagesViewController</a>.</p>
+<p><code>AVContactsView</code> view was a forked project <code>SSPersonViewController</code> but the original developer stop updating the code.</p>
 
 <h2>
+<a name="updates" class="anchor" href="#updates"><span class="octicon octicon-link"></span></a>Updates</h2>
+
+<p><strong>2013/19/10</strong>    </p>
+
+<ul>
+<li>Fixed known bugs and errors</li>
+<li>iOS 7 Support</li>
+<li>Removed Edit and Delete function</li>
+</ul><h2>
 <a name="bugs" class="anchor" href="#bugs"><span class="octicon octicon-link"></span></a>Bugs</h2>
 
-<p>There is <a href="https://github.com/samsoffes/sspersonviewcontroller/issues#issue/1">one known bug</a>. The view will not refresh its data when the address book changes. Feel free to fork and improve!</p>
+<p>Please browse <a href="https://github.com/anjerodesu/AVContactsView/issues">Issues</a> of the project page to view all known issues. If you found anything and is not yet submitted, please do so.</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/anjerodesu">anjerodesu</a></p>
