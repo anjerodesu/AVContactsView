@@ -29,4 +29,4 @@ See the demo project for further examples.
 
 ## Bugs
 
-Please browse [Issues](https://github.com/anjerodesu/AVContactsView/issues) of the project page to view all known issues. If you found anything and is not yet submitted, please do so.
+Please browse [Issues](https://github.com/anjerodesu/AVContactsView/issues) of the project page to view all known issues. If you find anything that is not yet submitted, please do so.
