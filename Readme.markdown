@@ -18,7 +18,7 @@ See the demo project for further examples.
 
 ## History
 
-`AVContactsView` view was a forked project `SSPersonViewController` but the original developer stop updating the code.
+`AVContactsView` was a forked project `SSPersonViewController` but the original developer stop updating the code.
 
 ## Updates
 
